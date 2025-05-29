@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+<th:block layout:fragment="content">
+  <h1 style="font-size: 6rem; font-weight: bold;">Đây là UI 2</h1>
+  <form action="/ui3" method="get">
+    <button type="submit" style="font-size: 6rem; padding: 1rem 2rem;">Đi tới UI 3</button>
+  </form>
+</th:block>
+</html>

@@ -1,0 +1,18 @@
+{
+  "theme_color": "#4CAF50",
+  "background_color": "#2EC6FE",
+  "icons": [
+    {
+      "sizes": "90x90",
+      "src": "http://a.xnimg.cn/wap/apple_icon_.png",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "any",
+  "display": "standalone",
+  "dir": "auto",
+  "lang": "en-US",
+  "start_url": "/",
+  "name": "demo",
+  "short_name": "demo"
+}
