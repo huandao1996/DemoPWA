@@ -1,3 +1,4 @@
+// config PWA
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(staticCacheName)

@@ -4,6 +4,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8"/>
+<!--    config PWA-->
     <link rel="manifest" href="/manifest.json">
     <meta name="theme-color" content="#4CAF50">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,6 +20,7 @@
 </main>
 
 <script>
+    //config PWA
     // Đăng ký service worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
