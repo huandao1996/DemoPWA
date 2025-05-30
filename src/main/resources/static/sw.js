@@ -47,7 +47,7 @@ self.addEventListener('push', function(event) {
 
 const filesToCache= [
     '/',
-    '/ui1',
+    '/?',
     '/ui2?',
     '/ui3?'
 ];
