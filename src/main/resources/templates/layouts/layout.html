@@ -6,9 +6,28 @@
     <meta charset="UTF-8"/>
 <!--    config PWA-->
     <link rel="manifest" href="/manifest.json">
+    <script src="/js/main.js"></script>
     <meta name="theme-color" content="#4CAF50">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <script>
+        async function subscribeToPush() {
+            const register = await navigator.serviceWorker.register("/sw.js");
+            const subscription = await register.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: "BJysKMjkq86zvJHWK5uDoNECcta_MMD0Y-9kTCvep7VRhk2MVKSu1ULfsGaiUDcTdh9_xoxMoQdccly4Ba5Cusc"
+            });
+
+            await fetch("/api/subscribe", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(subscription)
+            });
+
+            alert("Đăng ký thành công!");
+        }
+
+    </script>
 
 </head>
 <body>
@@ -46,8 +65,7 @@
         const subscribeBtn = document.getElementById('subscribe-btn');
         if (subscribeBtn && 'serviceWorker' in navigator && 'PushManager' in window) {
             subscribeBtn.onclick = async function () {
-                // Nhớ thay PUBLIC_VAPID_KEY bằng public key bạn vừa sinh
-                const PUBLIC_VAPID_KEY = 'YOUR_PUBLIC_VAPID_KEY'; // <<<--- THAY CÁI NÀY
+                const PUBLIC_VAPID_KEY = 'BJysKMjkq86zvJHWK5uDoNECcta_MMD0Y-9kTCvep7VRhk2MVKSu1ULfsGaiUDcTdh9_xoxMoQdccly4Ba5Cusc'; //
                 try {
                     // Bắt buộc phải request permission notification trước
                     let permission = Notification.permission;

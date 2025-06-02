@@ -29,20 +29,74 @@ self.addEventListener('fetch', event => {
     );
 });
 
-///push sự kiện
-self.addEventListener('push', function(event) {
-    let data = { title: 'Thông báo', body: 'Bạn có thông báo mới!' };
-    if (event.data) {
-        data = event.data.json();
+
+// self.addEventListener("push", function(event) {
+//     const data = event.data.json();
+//     self.registration.showNotification(data.title, {
+//         body: data.body,
+//         icon: "http://a.xnimg.cn/wap/apple_icon_.png"
+//     });
+// });
+
+// self.addEventListener("push", function(event) {
+//     let data = { title: "Thông báo", body: "Không có nội dung" };
+//
+//     try {
+//         if (event.data) {
+//             data = event.data.json();
+//         }
+//     } catch (e) {
+//         console.error(" Lỗi khi xử lý push data:", e);
+//     }
+//
+//     event.waitUntil(
+//         self.registration.showNotification(data.title, {
+//             body: data.body,
+//             icon: "http://a.xnimg.cn/wap/apple_icon_.png"
+//         })
+//     );
+// });
+
+self.addEventListener("push", function(event) {
+    console.log("📦 Push event triggered");
+
+    let data = {
+        title: "Thông báo",
+        body: "Không có nội dung",
+    };
+
+    try {
+        if (event.data) {
+            const text = event.data.text();
+            console.log("Push raw data:", text);
+
+            try {
+                const json = JSON.parse(text);
+                data.title = json.title || data.title;
+                data.body = json.body || data.body;
+            } catch (e) {
+                console.warn(" Push data không phải JSON. Dùng làm nội dung raw.");
+                data.body = text;
+            }
+        } else {
+            console.warn(" Không có event.data trong push event");
+        }
+    } catch (err) {
+        console.error(" Lỗi khi xử lý push event:", err);
     }
+
+    console.warn("thành công");
     event.waitUntil(
         self.registration.showNotification(data.title, {
-            body: data.body,
-            icon: 'http://a.xnimg.cn/wap/apple_icon_.png' // có thể đặt icon.png ở /static
+            body: data.body
         })
     );
 });
 
+self.addEventListener('activate', async () => {
+    // This will be called only once when the service worker is activated.
+    console.log('service worker activate')
+});
 
 
 const filesToCache= [
