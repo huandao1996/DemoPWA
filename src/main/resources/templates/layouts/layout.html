@@ -6,26 +6,25 @@
     <meta charset="UTF-8"/>
 <!--    config PWA-->
     <link rel="manifest" href="/manifest.json">
-    <script src="/js/main.js"></script>
     <meta name="theme-color" content="#4CAF50">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <script>
-        async function subscribeToPush() {
-            const register = await navigator.serviceWorker.register("/sw.js");
-            const subscription = await register.pushManager.subscribe({
-                userVisibleOnly: true,
-                applicationServerKey: "BJysKMjkq86zvJHWK5uDoNECcta_MMD0Y-9kTCvep7VRhk2MVKSu1ULfsGaiUDcTdh9_xoxMoQdccly4Ba5Cusc"
-            });
+<!--    <script>-->
+<!--        async function subscribeToPush() {-->
+<!--            const register = await navigator.serviceWorker.register("/sw.js");-->
+<!--            const subscription = await register.pushManager.subscribe({-->
+<!--                userVisibleOnly: true,-->
+<!--                applicationServerKey: "BAo5HgFr6fbYg0DbLgIQgiW39fpoAJqTd7HicAacUgbV4eQneUMY_mWtJEriP4_1ojTLE9HUfHpElqqDiPayHCI"-->
+<!--            });-->
 
-            await fetch("/api/subscribe", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(subscription)
-            });
+<!--            await fetch("/api/subscribe", {-->
+<!--                method: "POST",-->
+<!--                headers: { "Content-Type": "application/json" },-->
+<!--                body: JSON.stringify(subscription)-->
+<!--            });-->
 
-            alert("Đăng ký thành công!");
-        }
+<!--            alert("Đăng ký thành công!");-->
+<!--        }-->
 
     </script>
 
@@ -58,6 +57,11 @@
         const padding = '='.repeat((4 - base64String.length % 4) % 4);
         const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
         const rawData = window.atob(base64);
+        // var outputArray = new Uint8Array(rawData.length);
+        // for(var i = 0; i < rawData.length; ++i){
+        //     outputArray[i] - rawData.charCodeAt(i);
+        // }
+        // return  outputArray;
         return Uint8Array.from([...rawData].map(char => char.charCodeAt(0)));
     }
 
@@ -65,7 +69,7 @@
         const subscribeBtn = document.getElementById('subscribe-btn');
         if (subscribeBtn && 'serviceWorker' in navigator && 'PushManager' in window) {
             subscribeBtn.onclick = async function () {
-                const PUBLIC_VAPID_KEY = 'BJysKMjkq86zvJHWK5uDoNECcta_MMD0Y-9kTCvep7VRhk2MVKSu1ULfsGaiUDcTdh9_xoxMoQdccly4Ba5Cusc'; //
+                const PUBLIC_VAPID_KEY = 'BAo5HgFr6fbYg0DbLgIQgiW39fpoAJqTd7HicAacUgbV4eQneUMY_mWtJEriP4_1ojTLE9HUfHpElqqDiPayHCI'; //
                 try {
                     // Bắt buộc phải request permission notification trước
                     let permission = Notification.permission;
@@ -89,6 +93,7 @@
                         body: JSON.stringify(subscription),
                         headers: { 'Content-Type': 'application/json' }
                     });
+                    console.log('Đã gửi subscription về backend:', subscription)
 
                     alert('Đăng ký nhận thông báo thành công!');
                 } catch (e) {

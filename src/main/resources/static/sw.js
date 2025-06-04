@@ -29,34 +29,6 @@ self.addEventListener('fetch', event => {
     );
 });
 
-
-// self.addEventListener("push", function(event) {
-//     const data = event.data.json();
-//     self.registration.showNotification(data.title, {
-//         body: data.body,
-//         icon: "http://a.xnimg.cn/wap/apple_icon_.png"
-//     });
-// });
-
-// self.addEventListener("push", function(event) {
-//     let data = { title: "Thông báo", body: "Không có nội dung" };
-//
-//     try {
-//         if (event.data) {
-//             data = event.data.json();
-//         }
-//     } catch (e) {
-//         console.error(" Lỗi khi xử lý push data:", e);
-//     }
-//
-//     event.waitUntil(
-//         self.registration.showNotification(data.title, {
-//             body: data.body,
-//             icon: "http://a.xnimg.cn/wap/apple_icon_.png"
-//         })
-//     );
-// });
-
 self.addEventListener("push", function(event) {
     console.log("📦 Push event triggered");
 
@@ -84,12 +56,15 @@ self.addEventListener("push", function(event) {
     } catch (err) {
         console.error(" Lỗi khi xử lý push event:", err);
     }
+    const options = {
+        body: data.body,
+        icon: "http://a.xnimg.cn/wap/apple_icon_.png",  // icon nên có!
+        badge: "http://a.xnimg.cn/wap/apple_icon_.png"   // tùy chọn
+    };
 
     console.warn("thành công");
     event.waitUntil(
-        self.registration.showNotification(data.title, {
-            body: data.body
-        })
+        self.registration.showNotification(data.title,options )
     );
 });
 

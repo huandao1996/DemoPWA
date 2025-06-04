@@ -42,9 +42,9 @@ public class NotificationController {
         )));
 
         PushService pushService = new PushService()
-                .setPublicKey("BJysKMjkq86zvJHWK5uDoNECcta_MMD0Y-9kTCvep7VRhk2MVKSu1ULfsGaiUDcTdh9_xoxMoQdccly4Ba5Cusc")
-                .setPrivateKey("8PsULdD_qb0Mgg8JK6_cXiJ5vVmELMBRnUezbv2ZAys")
-                .setSubject("mailto: <huandt.19@grad.uit.edu.vn");
+                .setPublicKey("BAo5HgFr6fbYg0DbLgIQgiW39fpoAJqTd7HicAacUgbV4eQneUMY_mWtJEriP4_1ojTLE9HUfHpElqqDiPayHCI")
+                .setPrivateKey("0_GhFKbHAFW7DO6WRAFg7hxANRIY1IXS2o6DqoiSSog")
+                .setSubject("mailto:daotronghuan1996@gmail.com");
 
         pushService.send(notification);
         System.out.println("👉 Subscription endpoint: " + subscription.endpoint);
